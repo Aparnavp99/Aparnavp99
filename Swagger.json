@@ -5,7 +5,7 @@
     "description": "Basepom for all HubSpot Projects",
     "version": "2026-09"
   },
-  "host": "://hubapi.com",
+  "host": "api.hubapi.com",
   "basePath": "",
   "schemes": [
     "https"
