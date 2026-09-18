@@ -1,8 +1,8 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Contacts",
-    "description": "Basepom for all HubSpot Projects",
+    "title": "HubSpot Contacts",
+    "description": "Base API definition for HubSpot CRM Objects",
     "version": "2026-09"
   },
   "host": "api.hubapi.com",
@@ -18,90 +18,178 @@
   "paths": {
     "/crm/objects/2026-09/{objectType}": {
       "get": {
-        "tags": [ "Basic" ],
+        "tags": [
+          "Basic"
+        ],
         "summary": "Retrieve contacts",
         "operationId": "getContacts",
         "parameters": [
-          { "name": "objectType", "in": "path", "required": true, "type": "string" },
-          { "name": "after", "in": "query", "required": false, "type": "string" },
-          { "name": "archived", "in": "query", "required": false, "type": "boolean", "default": false },
-          { "name": "limit", "in": "query", "required": false, "type": "integer", "format": "int32", "default": 10 }
+          {
+            "name": "objectType",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "archived",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "default": false
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "default": 10
+          }
         ],
         "responses": {
           "200": {
-            "description": "successful operation",
-            "schema": { "$ref": "#/definitions/CollectionResponseSimplePublicObject" }
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/CollectionResponseSimplePublicObject"
+            }
           }
         }
       },
       "post": {
-        "tags": [ "Basic" ],
+        "tags": [
+          "Basic"
+        ],
         "summary": "Create a contact",
         "operationId": "createContact",
         "parameters": [
-          { "name": "objectType", "in": "path", "required": true, "type": "string" },
+          {
+            "name": "objectType",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
           {
             "name": "body",
             "in": "body",
             "required": true,
-            "schema": { "$ref": "#/definitions/SimplePublicObjectInputForCreate" }
+            "schema": {
+              "$ref": "#/definitions/SimplePublicObjectInputForCreate"
+            }
           }
         ],
         "responses": {
           "201": {
-            "description": "successful operation",
-            "schema": { "$ref": "#/definitions/SimplePublicObject" }
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/SimplePublicObject"
+            }
           }
         }
       }
     },
     "/crm/objects/2026-09/{objectType}/{objectId}": {
       "get": {
-        "tags": [ "Basic" ],
+        "tags": [
+          "Basic"
+        ],
         "summary": "Retrieve a contact",
         "operationId": "getContactById",
         "parameters": [
-          { "name": "objectId", "in": "path", "required": true, "type": "string" },
-          { "name": "objectType", "in": "path", "required": true, "type": "string" },
-          { "name": "archived", "in": "query", "required": false, "type": "boolean", "default": false }
+          {
+            "name": "objectType",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "objectId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "archived",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "default": false
+          }
         ],
         "responses": {
           "200": {
-            "description": "successful operation",
-            "schema": { "$ref": "#/definitions/SimplePublicObject" }
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/SimplePublicObject"
+            }
           }
         }
       },
       "delete": {
-        "tags": [ "Basic" ],
+        "tags": [
+          "Basic"
+        ],
         "summary": "Archive a contact",
         "operationId": "archiveContact",
         "parameters": [
-          { "name": "objectId", "in": "path", "required": true, "type": "string" },
-          { "name": "objectType", "in": "path", "required": true, "type": "string" }
+          {
+            "name": "objectType",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "objectId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
         ],
         "responses": {
-          "204": { "description": "No content" }
+          "204": {
+            "description": "No content"
+          }
         }
       },
       "patch": {
-        "tags": [ "Basic" ],
+        "tags": [
+          "Basic"
+        ],
         "summary": "Update a contact",
         "operationId": "updateContact",
         "parameters": [
-          { "name": "objectId", "in": "path", "required": true, "type": "string" },
-          { "name": "objectType", "in": "path", "required": true, "type": "string" },
+          {
+            "name": "objectType",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "objectId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
           {
             "name": "body",
             "in": "body",
             "required": true,
-            "schema": { "$ref": "#/definitions/SimplePublicObjectInput" }
+            "schema": {
+              "$ref": "#/definitions/SimplePublicObjectInput"
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "successful operation",
-            "schema": { "$ref": "#/definitions/SimplePublicObject" }
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/SimplePublicObject"
+            }
           }
         }
       }
@@ -112,48 +200,67 @@
       "type": "apiKey",
       "name": "Authorization",
       "in": "header",
-      "description": "HubSpot Private App Access Token. Format value as: Bearer pat-ap1-96024e81-2712-4214-8ed8-0cb3548d638d"
+      "description": "HubSpot authentication. Use a Bearer token. Do not store the token in this Swagger file."
     }
   },
   "definitions": {
     "SimplePublicObject": {
       "type": "object",
-      "required": [ "id", "properties" ],
+      "required": [
+        "id",
+        "properties"
+      ],
       "properties": {
-        "id": { "type": "string" },
+        "id": {
+          "type": "string"
+        },
         "properties": {
           "type": "object",
-          "additionalProperties": { "type": "string" }
+          "additionalProperties": {
+            "type": "string"
+          }
         }
       }
     },
     "SimplePublicObjectInputForCreate": {
       "type": "object",
-      "required": [ "properties" ],
+      "required": [
+        "properties"
+      ],
       "properties": {
         "properties": {
           "type": "object",
-          "additionalProperties": { "type": "string" }
+          "additionalProperties": {
+            "type": "string"
+          }
         }
       }
     },
     "SimplePublicObjectInput": {
       "type": "object",
-      "required": [ "properties" ],
+      "required": [
+        "properties"
+      ],
       "properties": {
         "properties": {
           "type": "object",
-          "additionalProperties": { "type": "string" }
+          "additionalProperties": {
+            "type": "string"
+          }
         }
       }
     },
     "CollectionResponseSimplePublicObject": {
       "type": "object",
-      "required": [ "results" ],
+      "required": [
+        "results"
+      ],
       "properties": {
         "results": {
           "type": "array",
-          "items": { "$ref": "#/definitions/SimplePublicObject" }
+          "items": {
+            "$ref": "#/definitions/SimplePublicObject"
+          }
         }
       }
     }
