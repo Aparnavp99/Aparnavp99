@@ -1,3 +1,30 @@
+The issue is caused by an invalid `"host"` field in your Swagger / OpenAPI definition:
+ 
+```json
+
+"host": "://hubapi.com",
+ 
+```
+ 
+The K2 REST Service Broker parses the `"host"` field to extract the domain name and port. Because `://` precedes `hubapi.com`, the parser mistakes `hubapi.com` for a port specification (or attempts to parse the string before/after `:` as a port number), resulting in the `VALIDATIONUnable to read Service Descriptor. (Inner: Host port is not a valid integer)` error.
+ 
+### How to Fix
+ 
+1. **Correct the `"host"` field** in your Swagger JSON file to strictly contain the host name without protocol prefixes:
+
+```json
+
+"host": "api.hubapi.com",
+ 
+```
+ 
+ 
+*(Note: HubSpot's standard CRM v3 endpoint host is `api.hubapi.com` rather than `hubapi.com`)*.
+
+2. **Updated Swagger JSON:**
+ 
+```json
+
 {
 
   "swagger": "2.0",
@@ -12,7 +39,7 @@
 
   },
 
-  "host": "://hubapi.com",
+  "host": "api.hubapi.com",
 
   "basePath": "/crm/v3",
 
@@ -319,5 +346,6 @@
   }
 
 }
-
+ 
+ 
  
