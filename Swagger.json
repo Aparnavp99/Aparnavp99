@@ -226,7 +226,7 @@
 
       "in": "header",
 
-      "description": "HubSpot Private App Access Token. Format value as: Bearer pat-ap1-ef924772-1a2d-4098-9d7d-4182ba2e6538"
+      "description": "HubSpot Private App Access Token. Format value as: Bearer YOUR_TOKEN_HERE"
 
     }
 
