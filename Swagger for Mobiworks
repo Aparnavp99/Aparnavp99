@@ -12,7 +12,7 @@
 
   },
 
-  "host": "://mobiwork.com",
+  "host": ":mobiwork.com",
 
   "basePath": "/api/rest/23157/10.0.21",
 
