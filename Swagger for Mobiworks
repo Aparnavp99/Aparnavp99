@@ -1,18 +1,18 @@
- {
+{
 
   "swagger": "2.0",
 
   "info": {
 
-    "title": "MobiWork POC Quotes API for Nintex K2",
+    "title": "MobiWork Estimates API",
 
     "version": "1.0.0",
 
-    "description": "POC Swagger definition using query-string token authentication to fetch Estimate data."
+    "description": "MobiWork Estimates API for Nintex K2"
 
   },
 
- "host": "mobiwork.com",
+  "host": "mobiwork.com",
 
   "basePath": "/api/rest/23157/10.0.21",
 
@@ -28,11 +28,9 @@
 
       "get": {
 
-        "summary": "List Estimates via Token Auth",
+        "summary": "Get Estimates",
 
-        "description": "Retrieves the estimate payload using a manually injected token from Postman.",
-
-        "operationId": "listEstimates",
+        "operationId": "GetEstimates",
 
         "produces": [
 
@@ -48,7 +46,7 @@
 
             "in": "query",
 
-            "description": "The temporary session token generated from Postman.",
+            "description": "MobiWork session token",
 
             "required": true,
 
@@ -62,257 +60,11 @@
 
           "200": {
 
-            "description": "Successful retrieval of quote data",
-
-            "schema": {
-
-              "$ref": "#/definitions/MobiWorkQuoteResponse"
-
-            }
+            "description": "Successful response"
 
           }
 
         }
-
-      }
-
-    }
-
-  },
-
-  "definitions": {
-
-    "MobiWorkQuoteResponse": {
-
-      "type": "object",
-
-      "properties": {
-
-        "body": {
-
-          "type": "object",
-
-          "properties": {
-
-            "?xml": {
-
-              "type": "object",
-
-              "properties": {
-
-                "@version": { "type": "string" },
-
-                "@encoding": { "type": "string" }
-
-              }
-
-            },
-
-            "response": {
-
-              "type": "object",
-
-              "properties": {
-
-                "@version": { "type": "string" },
-
-                "@statusCode": { "type": "string" },
-
-                "estimate": {
-
-                  "$ref": "#/definitions/Estimate"
-
-                }
-
-              }
-
-            }
-
-          }
-
-        }
-
-      }
-
-    },
-
-    "Estimate": {
-
-      "type": "object",
-
-      "properties": {
-
-        "mobiworkEstimateId": { "type": "string" },
-
-        "externalId": { "type": "string" },
-
-        "description": { "type": "string" },
-
-        "comment": { "type": "string" },
-
-        "status": { "type": "string" },
-
-        "assignedTo": { "type": "string" },
-
-        "quoteNumber": { "type": "string" },
-
-        "dueDate": { "type": "string" },
-
-        "acceptedDate": { "type": "string" },
-
-        "createdDate": { "type": "string" },
-
-        "address": { "$ref": "#/definitions/Address" },
-
-        "contact": { "$ref": "#/definitions/Contact" },
-
-        "customer": { "$ref": "#/definitions/Customer" },
-
-        "customFields": {
-
-          "type": "object",
-
-          "properties": {
-
-            "customField": {
-
-              "type": "array",
-
-              "items": { "$ref": "#/definitions/CustomField" }
-
-            }
-
-          }
-
-        }
-
-      }
-
-    },
-
-    "Address": {
-
-      "type": "object",
-
-      "properties": {
-
-        "addressId": { "type": "string" },
-
-        "address1": { "type": "string" },
-
-        "address2": { "type": "string" },
-
-        "city": { "type": "string" },
-
-        "state": { "type": "string" },
-
-        "zipCode": { "type": "string" },
-
-        "countryId": { "type": "string" },
-
-        "latitude": { "type": "string" },
-
-        "longitude": { "type": "string" },
-
-        "name": { "type": "string" },
-
-        "baseDistance": { "type": "string" },
-
-        "validated": { "type": "string" },
-
-        "addressExternalId": { "type": "string" },
-
-        "imageId": { "type": "string" },
-
-        "coordinatesLocked": { "type": "string" }
-
-      }
-
-    },
-
-    "Contact": {
-
-      "type": "object",
-
-      "properties": {
-
-        "contactId": { "type": "string" },
-
-        "customerId": { "type": "string" },
-
-        "firstName": { "type": "string" },
-
-        "lastName": { "type": "string" },
-
-        "title": { "type": "string" },
-
-        "email": { "type": "string" },
-
-        "phoneNumber": { "type": "string" },
-
-        "altPhoneNumber": { "type": "string" },
-
-        "officePhone": { "type": "string" },
-
-        "phoneExt": { "type": "string" },
-
-        "altPhoneExt": { "type": "string" },
-
-        "officePhoneExt": { "type": "string" },
-
-        "pin": { "type": "string" },
-
-        "enabled": { "type": "string" },
-
-        "createdDate": { "type": "string" },
-
-        "fax": { "type": "string" },
-
-        "admin": { "type": "string" }
-
-      }
-
-    },
-
-    "Customer": {
-
-      "type": "object",
-
-      "properties": {
-
-        "customerId": { "type": "string" },
-
-        "status": { "type": "string" },
-
-        "assignedTo": { "type": "string" },
-
-        "companyName": { "type": "string" },
-
-        "externalCustomerId": { "type": "string" },
-
-        "taxable": { "type": "string" },
-
-        "typeId": { "type": "string" }
-
-      }
-
-    },
-
-    "CustomField": {
-
-      "type": "object",
-
-      "properties": {
-
-        "fieldType": { "type": "string" },
-
-        "apiName": { "type": "string" },
-
-        "index": { "type": "string" },
-
-        "value": { "type": "string" },
-
-        "name": { "type": "string" }
 
       }
 
