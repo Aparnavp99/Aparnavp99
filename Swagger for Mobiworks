@@ -8,7 +8,7 @@
 
     "version": "1.0.0",
 
-    "description": "MobiWork Estimates API for Nintex K2"
+    "description": "MobiWork Estimates API for Nintex K2. Retrieves MobiWork estimate/quote information using a session token passed as a query parameter."
 
   },
 
@@ -22,22 +22,36 @@
 
   ],
 
+  "produces": [
+
+    "application/json"
+
+  ],
+ 
   "paths": {
 
     "/estimate/list.html": {
 
       "get": {
 
+        "tags": [
+
+          "Estimates"
+
+        ],
+
         "summary": "Get Estimates",
 
-        "operationId": "GetEstimates",
+        "description": "Retrieves estimate and quote information from MobiWork. The session token must be supplied as the token query parameter.",
 
+        "operationId": "GetEstimates",
+ 
         "produces": [
 
           "application/json"
 
         ],
-
+ 
         "parameters": [
 
           {
@@ -46,7 +60,7 @@
 
             "in": "query",
 
-            "description": "MobiWork session token",
+            "description": "MobiWork session token.",
 
             "required": true,
 
@@ -55,14 +69,602 @@
           }
 
         ],
-
+ 
         "responses": {
 
           "200": {
 
-            "description": "Successful response"
+            "description": "Successful retrieval of estimate data.",
+
+            "schema": {
+
+              "$ref": "#/definitions/MobiWorkQuoteResponse"
+
+            }
+
+          },
+ 
+          "400": {
+
+            "description": "Bad request.",
+
+            "schema": {
+
+              "$ref": "#/definitions/ErrorResponse"
+
+            }
+
+          },
+ 
+          "401": {
+
+            "description": "Unauthorized or invalid session token.",
+
+            "schema": {
+
+              "$ref": "#/definitions/ErrorResponse"
+
+            }
+
+          },
+ 
+          "403": {
+
+            "description": "Forbidden.",
+
+            "schema": {
+
+              "$ref": "#/definitions/ErrorResponse"
+
+            }
+
+          },
+ 
+          "404": {
+
+            "description": "Estimate endpoint not found.",
+
+            "schema": {
+
+              "$ref": "#/definitions/ErrorResponse"
+
+            }
+
+          },
+ 
+          "500": {
+
+            "description": "MobiWork server error.",
+
+            "schema": {
+
+              "$ref": "#/definitions/ErrorResponse"
+
+            }
 
           }
+
+        }
+
+      }
+
+    }
+
+  },
+ 
+  "definitions": {
+ 
+    "MobiWorkQuoteResponse": {
+
+      "type": "object",
+
+      "properties": {
+ 
+        "body": {
+
+          "type": "object",
+
+          "properties": {
+ 
+            "?xml": {
+
+              "type": "object",
+
+              "properties": {
+
+                "@version": {
+
+                  "type": "string"
+
+                },
+
+                "@encoding": {
+
+                  "type": "string"
+
+                }
+
+              }
+
+            },
+ 
+            "response": {
+
+              "type": "object",
+
+              "properties": {
+ 
+                "@version": {
+
+                  "type": "string"
+
+                },
+ 
+                "@statusCode": {
+
+                  "type": "string"
+
+                },
+ 
+                "estimate": {
+
+                  "$ref": "#/definitions/Estimate"
+
+                }
+
+              }
+
+            }
+
+          }
+
+        }
+
+      }
+
+    },
+ 
+    "Estimate": {
+
+      "type": "object",
+
+      "properties": {
+ 
+        "mobiworkEstimateId": {
+
+          "type": "string"
+
+        },
+ 
+        "externalId": {
+
+          "type": "string"
+
+        },
+ 
+        "description": {
+
+          "type": "string"
+
+        },
+ 
+        "comment": {
+
+          "type": "string"
+
+        },
+ 
+        "status": {
+
+          "type": "string"
+
+        },
+ 
+        "assignedTo": {
+
+          "type": "string"
+
+        },
+ 
+        "quoteNumber": {
+
+          "type": "string"
+
+        },
+ 
+        "dueDate": {
+
+          "type": "string"
+
+        },
+ 
+        "acceptedDate": {
+
+          "type": "string"
+
+        },
+ 
+        "createdDate": {
+
+          "type": "string"
+
+        },
+ 
+        "address": {
+
+          "$ref": "#/definitions/Address"
+
+        },
+ 
+        "contact": {
+
+          "$ref": "#/definitions/Contact"
+
+        },
+ 
+        "customer": {
+
+          "$ref": "#/definitions/Customer"
+
+        },
+ 
+        "customFields": {
+
+          "$ref": "#/definitions/CustomFields"
+
+        }
+
+      }
+
+    },
+ 
+    "Address": {
+
+      "type": "object",
+
+      "properties": {
+ 
+        "addressId": {
+
+          "type": "string"
+
+        },
+ 
+        "address1": {
+
+          "type": "string"
+
+        },
+ 
+        "address2": {
+
+          "type": "string"
+
+        },
+ 
+        "city": {
+
+          "type": "string"
+
+        },
+ 
+        "state": {
+
+          "type": "string"
+
+        },
+ 
+        "zipCode": {
+
+          "type": "string"
+
+        },
+ 
+        "countryId": {
+
+          "type": "string"
+
+        },
+ 
+        "latitude": {
+
+          "type": "string"
+
+        },
+ 
+        "longitude": {
+
+          "type": "string"
+
+        },
+ 
+        "name": {
+
+          "type": "string"
+
+        },
+ 
+        "baseDistance": {
+
+          "type": "string"
+
+        },
+ 
+        "validated": {
+
+          "type": "string"
+
+        },
+ 
+        "addressExternalId": {
+
+          "type": "string"
+
+        },
+ 
+        "imageId": {
+
+          "type": "string"
+
+        },
+ 
+        "coordinatesLocked": {
+
+          "type": "string"
+
+        }
+
+      }
+
+    },
+ 
+    "Contact": {
+
+      "type": "object",
+
+      "properties": {
+ 
+        "contactId": {
+
+          "type": "string"
+
+        },
+ 
+        "customerId": {
+
+          "type": "string"
+
+        },
+ 
+        "firstName": {
+
+          "type": "string"
+
+        },
+ 
+        "lastName": {
+
+          "type": "string"
+
+        },
+ 
+        "title": {
+
+          "type": "string"
+
+        },
+ 
+        "email": {
+
+          "type": "string"
+
+        },
+ 
+        "phoneNumber": {
+
+          "type": "string"
+
+        },
+ 
+        "altPhoneNumber": {
+
+          "type": "string"
+
+        },
+ 
+        "officePhone": {
+
+          "type": "string"
+
+        },
+ 
+        "phoneExt": {
+
+          "type": "string"
+
+        },
+ 
+        "altPhoneExt": {
+
+          "type": "string"
+
+        },
+ 
+        "officePhoneExt": {
+
+          "type": "string"
+
+        },
+ 
+        "pin": {
+
+          "type": "string"
+
+        },
+ 
+        "enabled": {
+
+          "type": "string"
+
+        },
+ 
+        "createdDate": {
+
+          "type": "string"
+
+        },
+ 
+        "fax": {
+
+          "type": "string"
+
+        },
+ 
+        "admin": {
+
+          "type": "string"
+
+        }
+
+      }
+
+    },
+ 
+    "Customer": {
+
+      "type": "object",
+
+      "properties": {
+ 
+        "customerId": {
+
+          "type": "string"
+
+        },
+ 
+        "status": {
+
+          "type": "string"
+
+        },
+ 
+        "assignedTo": {
+
+          "type": "string"
+
+        },
+ 
+        "companyName": {
+
+          "type": "string"
+
+        },
+ 
+        "externalCustomerId": {
+
+          "type": "string"
+
+        },
+ 
+        "taxable": {
+
+          "type": "string"
+
+        },
+ 
+        "typeId": {
+
+          "type": "string"
+
+        }
+
+      }
+
+    },
+ 
+    "CustomFields": {
+
+      "type": "object",
+
+      "properties": {
+ 
+        "customField": {
+
+          "type": "array",
+
+          "items": {
+
+            "$ref": "#/definitions/CustomField"
+
+          }
+
+        }
+
+      }
+
+    },
+ 
+    "CustomField": {
+
+      "type": "object",
+
+      "properties": {
+ 
+        "fieldType": {
+
+          "type": "string"
+
+        },
+ 
+        "apiName": {
+
+          "type": "string"
+
+        },
+ 
+        "index": {
+
+          "type": "string"
+
+        },
+ 
+        "value": {
+
+          "type": "string"
+
+        },
+ 
+        "name": {
+
+          "type": "string"
+
+        }
+
+      }
+
+    },
+ 
+    "ErrorResponse": {
+
+      "type": "object",
+
+      "properties": {
+ 
+        "error": {
+
+          "type": "string"
+
+        },
+ 
+        "message": {
+
+          "type": "string"
+
+        },
+ 
+        "statusCode": {
+
+          "type": "string"
 
         }
 
