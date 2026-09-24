@@ -1,118 +1,324 @@
- 
 {
-  "openapi": "3.0.0",
+ 
+  "swagger": "2.0",
+ 
   "info": {
-    "title": "HubSpot Contacts - K2 Test",
+ 
+    "title": "HubSpot Contacts API for K2",
+ 
+    "description": "Flattened HubSpot v3 Contacts API schema mapping for Nintex K2",
+ 
     "version": "1.0.0"
+ 
   },
  
-  "servers": [
+  "host": "api.hubapi.com",
+ 
+  "basePath": "/crm/v3",
+ 
+  "schemes": [
+ 
+    "https"
+ 
+  ],
+ 
+  "security": [
+ 
     {
-      "url": "https://api.hubapi.com/crm/v3"
+ 
+      "PrivateAppAuth": []
+ 
     }
+ 
   ],
  
   "paths": {
+ 
     "/objects/contacts": {
+ 
       "get": {
-        "operationId": "GetContacts",
+ 
+        "tags": [ "Contacts" ],
+ 
         "summary": "Get Contacts",
  
+        "description": "Retrieve a list of contacts from HubSpot.",
+ 
+        "operationId": "getContacts",
+ 
         "parameters": [
-          {
-            "name": "after",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "archived",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "boolean",
-              "default": false
-            }
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 10
-            }
-          }
+ 
+          { "name": "after", "in": "query", "required": false, "type": "string", "description": "The paging cursor token" },
+ 
+          { "name": "archived", "in": "query", "required": false, "type": "boolean", "default": false },
+ 
+          { "name": "limit", "in": "query", "required": false, "type": "integer", "format": "int32", "default": 10 }
+ 
         ],
  
         "responses": {
+ 
           "200": {
-            "description": "HubSpot contacts",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ContactResponse"
-                }
-              }
-            }
+ 
+            "description": "Successful operation",
+ 
+            "schema": { "$ref": "#/definitions/CollectionResponseSimplePublicObject" }
+ 
           }
+ 
         }
+ 
+      },
+ 
+      "post": {
+ 
+        "tags": [ "Contacts" ],
+ 
+        "summary": "Create Contact",
+ 
+        "description": "Create a new contact in HubSpot.",
+ 
+        "operationId": "createContact",
+ 
+        "parameters": [
+ 
+          {
+ 
+            "name": "body",
+ 
+            "in": "body",
+ 
+            "required": true,
+ 
+            "schema": { "$ref": "#/definitions/SimplePublicObjectInputForCreate" }
+ 
+          }
+ 
+        ],
+ 
+        "responses": {
+ 
+          "201": {
+ 
+            "description": "Contact created successfully",
+ 
+            "schema": { "$ref": "#/definitions/SimplePublicObject" }
+ 
+          }
+ 
+        }
+ 
       }
+ 
+    },
+ 
+    "/objects/contacts/{contactId}": {
+ 
+      "get": {
+ 
+        "tags": [ "Contacts" ],
+ 
+        "summary": "Get Contact By ID",
+ 
+        "description": "Retrieve a specific contact using their HubSpot ID.",
+ 
+        "operationId": "getContactById",
+ 
+        "parameters": [
+ 
+          { "name": "contactId", "in": "path", "required": true, "type": "string" },
+ 
+          { "name": "archived", "in": "query", "required": false, "type": "boolean", "default": false }
+ 
+        ],
+ 
+        "responses": {
+ 
+          "200": {
+ 
+            "description": "Successful operation",
+ 
+            "schema": { "$ref": "#/definitions/SimplePublicObject" }
+ 
+          }
+ 
+        }
+ 
+      },
+ 
+      "delete": {
+ 
+        "tags": [ "Contacts" ],
+ 
+        "summary": "Archive Contact",
+ 
+        "description": "Archive/delete a contact by ID.",
+ 
+        "operationId": "archiveContact",
+ 
+        "parameters": [
+ 
+          { "name": "contactId", "in": "path", "required": true, "type": "string" }
+ 
+        ],
+ 
+        "responses": {
+ 
+          "204": { "description": "No content. Archived successfully." }
+ 
+        }
+ 
+      },
+ 
+      "patch": {
+ 
+        "tags": [ "Contacts" ],
+ 
+        "summary": "Update Contact",
+ 
+        "description": "Update details of an existing contact.",
+ 
+        "operationId": "updateContact",
+ 
+        "parameters": [
+ 
+          { "name": "contactId", "in": "path", "required": true, "type": "string" },
+ 
+          {
+ 
+            "name": "body",
+ 
+            "in": "body",
+ 
+            "required": true,
+ 
+            "schema": { "$ref": "#/definitions/SimplePublicObjectInput" }
+ 
+          }
+ 
+        ],
+ 
+        "responses": {
+ 
+          "200": {
+ 
+            "description": "Update successful",
+ 
+            "schema": { "$ref": "#/definitions/SimplePublicObject" }
+ 
+          }
+ 
+        }
+ 
+      }
+ 
     }
+ 
   },
  
-  "components": {
-    "schemas": {
+  "securityDefinitions": {
  
-      "ContactResponse": {
-        "type": "object",
-        "properties": {
-          "results": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/SimplePublicObject"
-            }
-          }
-        }
-      },
+    "PrivateAppAuth": {
  
-      "SimplePublicObject": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "properties": {
-            "$ref": "#/components/schemas/ContactProperties"
-          }
-        }
-      },
+      "type": "apiKey",
  
-      "ContactProperties": {
-        "type": "object",
-        "properties": {
-          "email": {
-            "type": "string",
-            "nullable": true
-          },
-          "firstname": {
-            "type": "string",
-            "nullable": true
-          },
-          "lastname": {
-            "type": "string",
-            "nullable": true
-          },
-          "phone": {
-            "type": "string",
-            "nullable": true
-          }
-        }
-      }
+      "name": "Authorization",
+ 
+      "in": "header",
+ 
+      "description": "HubSpot Private App Access Token. Format value as: Bearer YOUR_TOKEN_HERE"
+ 
     }
+ 
+  },
+ 
+  "definitions": {
+ 
+    "ContactProperties": {
+ 
+      "type": "object",
+ 
+      "properties": {
+ 
+        "email": { "type": "string", "description": "Email address of the contact" },
+ 
+        "firstname": { "type": "string", "description": "First name of the contact" },
+ 
+        "lastname": { "type": "string", "description": "Last name of the contact" },
+ 
+        "phone": { "type": "string", "description": "Phone number of the contact" }
+ 
+      }
+ 
+    },
+ 
+    "SimplePublicObject": {
+ 
+      "type": "object",
+ 
+      "required": [ "id", "properties" ],
+ 
+      "properties": {
+ 
+        "id": { "type": "string" },
+ 
+        "properties": { "$ref": "#/definitions/ContactProperties" }
+ 
+      }
+ 
+    },
+ 
+    "SimplePublicObjectInputForCreate": {
+ 
+      "type": "object",
+ 
+      "required": [ "properties" ],
+ 
+      "properties": {
+ 
+        "properties": { "$ref": "#/definitions/ContactProperties" }
+ 
+      }
+ 
+    },
+ 
+    "SimplePublicObjectInput": {
+ 
+      "type": "object",
+ 
+      "required": [ "properties" ],
+ 
+      "properties": {
+ 
+        "properties": { "$ref": "#/definitions/ContactProperties" }
+ 
+      }
+ 
+    },
+ 
+    "CollectionResponseSimplePublicObject": {
+ 
+      "type": "object",
+ 
+      "required": [ "results" ],
+ 
+      "properties": {
+ 
+        "results": {
+ 
+          "type": "array",
+ 
+          "items": { "$ref": "#/definitions/SimplePublicObject" }
+ 
+        }
+ 
+      }
+ 
+    }
+ 
   }
+ 
 }
+ 
+ 
  
