@@ -1,21 +1,97 @@
+/* ProInception PayFlow - shared style for K2 forms/views
+   Values are estimates from the prototype; verify against the prototype CSS. */
+
 :root{
-  --page-bg:#EDEBE7; --card-bg:#F5F3EE; --surface:#fff;
-  --table-head-bg:#EDE9DD; --border:#E0DCD2;
-  --gold:#B8963E; --red:#D6383A;
-  --input-bg:#F6EEDD; --input-border:#D8CFB8;
-  --text:#1F1F1F; --muted:#6B6B6B;
-  --ok:#2E7D32; --bad:#C62828;
-  --font:"Segoe UI","Open Sans",Arial,sans-serif;
+  --pf-page-bg:#EDEBE7;
+  --pf-card-bg:#F5F3EE;
+  --pf-surface:#FFFFFF;
+  --pf-table-head:#EDE9DD;
+  --pf-row-alt:#F8F6F1;
+  --pf-border:#E0DCD2;
+  --pf-gold:#B8963E;
+  --pf-gold-text:#8A6D2F;
+  --pf-red:#D6383A;
+  --pf-input-bg:#F6EEDD;
+  --pf-input-border:#D8CFB8;
+  --pf-text:#1F1F1F;
+  --pf-muted:#6B6B6B;
+  --pf-ok:#2E7D32;
+  --pf-bad:#C62828;
+  --pf-viewer:#8C8A86;
+  --pf-font:"Segoe UI","Open Sans",Arial,sans-serif;
 }
-body{background:var(--page-bg);font:13px var(--font);color:var(--text)}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:3px}
-.card-header{background:var(--card-bg);border-bottom:2px solid var(--gold);
-  padding:8px 14px;font-size:14px;font-weight:600}
-.card-body{padding:16px}
-.field label{color:var(--muted)}
-.field input,.field select{height:32px;background:var(--input-bg);
-  border:1px solid var(--input-border);border-radius:2px;padding:0 10px}
-.btn-primary{background:var(--red);color:#fff;border:0;border-radius:2px;height:32px;padding:0 14px;font-weight:600}
-.btn-secondary{background:#fff;border:1px solid #C9C5BB;border-radius:2px;height:32px;padding:0 14px}
-.grid th{background:var(--table-head-bg);font-weight:600;border-bottom:2px solid var(--gold)}
-.grid td{border-bottom:1px solid var(--border)}
+
+/* Page */
+.pf-page{background:var(--pf-page-bg);font:13px var(--pf-font);color:var(--pf-text)}
+.pf-title{font-size:22px;font-weight:600}
+.pf-breadcrumb{font-size:12px;color:var(--pf-muted)}
+.pf-breadcrumb b{color:var(--pf-text);font-weight:600}
+
+/* Header */
+.pf-header{background:var(--pf-surface);height:56px;border-bottom:2px solid var(--pf-gold);
+  display:flex;align-items:center;justify-content:space-between;padding:0 20px}
+.pf-header-sub{color:var(--pf-muted);font-size:14px;border-left:1px solid var(--pf-border);margin-left:14px;padding-left:14px}
+.pf-avatar{width:32px;height:32px;border-radius:50%;background:#1F1F1F;color:#fff;
+  display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:600}
+.pf-signed-in{font-size:11px;color:var(--pf-muted)}
+.pf-user-name{font-size:13px;font-weight:600}
+
+/* Side panel */
+.pf-side{background:var(--pf-surface);width:235px;border-right:1px solid var(--pf-border);min-height:100vh}
+.pf-side-label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--pf-gold-text);padding:16px 20px 6px}
+.pf-nav-item{display:flex;align-items:center;gap:10px;height:36px;padding:0 20px;font-size:14px;
+  color:var(--pf-text);border-left:3px solid transparent;cursor:pointer}
+.pf-nav-item:hover{background:var(--pf-row-alt)}
+.pf-nav-item.pf-active{background:#F8F1E0;border-left-color:var(--pf-red);color:var(--pf-red)}
+.pf-nav-item.pf-disabled{color:#B5B2AA;cursor:default}
+
+/* Action bar */
+.pf-actionbar{background:var(--pf-surface);border:1px solid var(--pf-border);padding:8px 12px;
+  display:flex;align-items:center;gap:8px}
+.pf-required-note{margin-left:auto;font-size:12px;color:var(--pf-muted)}
+
+/* Buttons */
+.pf-btn-primary{background:var(--pf-red);color:#fff;border:0;border-radius:2px;height:32px;padding:0 14px;font-weight:600;cursor:pointer}
+.pf-btn-primary[disabled],.pf-btn-primary.pf-disabled{background:#EBA3A4;cursor:default}
+.pf-btn-secondary{background:#fff;color:var(--pf-text);border:1px solid #C9C5BB;border-radius:2px;height:32px;padding:0 14px;cursor:pointer}
+.pf-btn-secondary[disabled]{color:#A8A59D}
+.pf-btn-link{background:none;border:0;color:var(--pf-text);cursor:pointer}
+
+/* Cards */
+.pf-card{background:var(--pf-surface);border:1px solid var(--pf-border);border-radius:3px}
+.pf-card-header{background:var(--pf-card-bg);border-bottom:2px solid var(--pf-gold);
+  padding:8px 14px;font-size:14px;font-weight:600;display:flex;justify-content:space-between}
+.pf-card-hint{font-size:12px;font-weight:400;color:var(--pf-muted)}
+.pf-card-body{padding:16px}
+
+/* Fields */
+.pf-label{color:var(--pf-muted);font-size:13px}
+.pf-req{color:var(--pf-red)}
+.pf-value{font-weight:600}
+.pf-input{height:32px;background:var(--pf-input-bg);border:1px solid var(--pf-input-border);
+  border-radius:2px;padding:0 10px;font:13px var(--pf-font);width:100%;box-sizing:border-box}
+.pf-input::placeholder{color:#A9A18C}
+
+/* Dropzone */
+.pf-dropzone{border:1px dashed var(--pf-input-border);border-radius:2px;padding:16px;background:#FBFAF6}
+.pf-dropzone a{color:var(--pf-red);text-decoration:underline}
+
+/* Document viewer */
+.pf-viewer{background:var(--pf-viewer);color:#fff;text-align:center;min-height:260px}
+
+/* Grid / list */
+.pf-grid th{background:var(--pf-table-head);font-weight:600;text-align:left;
+  padding:10px 12px;border-bottom:2px solid var(--pf-gold)}
+.pf-grid td{padding:10px 12px;border-bottom:1px solid var(--pf-border)}
+.pf-grid tr:nth-child(even) td{background:var(--pf-row-alt)}
+.pf-grid-footer{background:var(--pf-card-bg);color:var(--pf-muted);font-size:12px;
+  padding:8px 12px;display:flex;justify-content:space-between}
+
+/* Status chips */
+.pf-status{font-weight:600}
+.pf-status::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;
+  background:currentColor;margin-right:6px}
+.pf-st-posted{color:var(--pf-ok)}
+.pf-st-rejected{color:var(--pf-bad)}
+.pf-st-draft{color:var(--pf-muted)}
