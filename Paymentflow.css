@@ -1,97 +1,166 @@
-/* ProInception PayFlow - shared style for K2 forms/views
-   Values are estimates from the prototype; verify against the prototype CSS. */
-
-:root{
-  --pf-page-bg:#EDEBE7;
-  --pf-card-bg:#F5F3EE;
-  --pf-surface:#FFFFFF;
-  --pf-table-head:#EDE9DD;
-  --pf-row-alt:#F8F6F1;
-  --pf-border:#E0DCD2;
-  --pf-gold:#B8963E;
-  --pf-gold-text:#8A6D2F;
-  --pf-red:#D6383A;
-  --pf-input-bg:#F6EEDD;
-  --pf-input-border:#D8CFB8;
-  --pf-text:#1F1F1F;
-  --pf-muted:#6B6B6B;
-  --pf-ok:#2E7D32;
-  --pf-bad:#C62828;
-  --pf-viewer:#8C8A86;
-  --pf-font:"Segoe UI","Open Sans",Arial,sans-serif;
+/* ---------- 1. Colour and font tokens (change colours here only) ---------- */
+:root {
+  --pf-bg:           #EDEBE7;  /* page background           */
+  --pf-card:         #FFFFFF;  /* card body                 */
+  --pf-card-head:    #F5F3EE;  /* card header, grid footer  */
+  --pf-card-border:  #E2DED3;  /* thin card outline         */
+  --pf-gold:         #B8963E;  /* line under card headers   */
+  --pf-red:          #C8372D;  /* primary button, required  */
+  --pf-input-bg:     #F7EFDD;  /* inputs / AI-filled fields */
+  --pf-input-border: #CDBF9A;
+  --pf-grid-head:    #ECE9DE;  /* grid header row           */
+  --pf-text:         #222222;
+  --pf-muted:        #666666;
+  --pf-font: "Segoe UI", -apple-system, "Helvetica Neue", Arial, sans-serif;
 }
 
-/* Page */
-.pf-page{background:var(--pf-page-bg);font:13px var(--pf-font);color:var(--pf-text)}
-.pf-title{font-size:22px;font-weight:600}
-.pf-breadcrumb{font-size:12px;color:var(--pf-muted)}
-.pf-breadcrumb b{color:var(--pf-text);font-weight:600}
+/* ---------- 2. Page ----------
+   Verified: <body class="theme-entry"> and
+   <div class="runtime-content"> + <div class="runtime-form theme-entry"> */
+body.theme-entry {
+  background: var(--pf-bg);
+  font-family: var(--pf-font);
+  font-size: 13px;
+  color: var(--pf-text);
+}
+body.theme-entry .runtime-content,
+body.theme-entry .runtime-form {
+  background: transparent;
+  font-family: var(--pf-font);
+  color: var(--pf-text);
+}
 
-/* Header */
-.pf-header{background:var(--pf-surface);height:56px;border-bottom:2px solid var(--pf-gold);
-  display:flex;align-items:center;justify-content:space-between;padding:0 20px}
-.pf-header-sub{color:var(--pf-muted);font-size:14px;border-left:1px solid var(--pf-border);margin-left:14px;padding-left:14px}
-.pf-avatar{width:32px;height:32px;border-radius:50%;background:#1F1F1F;color:#fff;
-  display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:600}
-.pf-signed-in{font-size:11px;color:var(--pf-muted)}
-.pf-user-name{font-size:13px;font-weight:600}
+/* ---------- 3. Cards (each K2 view) ----------
+   Verified structure: .row > .view > .innerpanel > .panel
+   The .panel is the visible box of every view. */
+.runtime-form .view .panel {
+  background: var(--pf-card);
+  border: 1px solid var(--pf-card-border);
+  box-shadow: none;
+  border-radius: 0;
+}
+.runtime-form .view .panel .panel-body,
+.runtime-form .view .panel .panel-body-m,
+.runtime-form .view .panel .panel-body-m-c,
+.runtime-form .view .panel .panel-body-wrapper {
+  background: transparent;
+}
 
-/* Side panel */
-.pf-side{background:var(--pf-surface);width:235px;border-right:1px solid var(--pf-border);min-height:100vh}
-.pf-side-label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
-  color:var(--pf-gold-text);padding:16px 20px 6px}
-.pf-nav-item{display:flex;align-items:center;gap:10px;height:36px;padding:0 20px;font-size:14px;
-  color:var(--pf-text);border-left:3px solid transparent;cursor:pointer}
-.pf-nav-item:hover{background:var(--pf-row-alt)}
-.pf-nav-item.pf-active{background:#F8F1E0;border-left-color:var(--pf-red);color:var(--pf-red)}
-.pf-nav-item.pf-disabled{color:#B5B2AA;cursor:default}
+/* Card header: only on views that HAVE a header [VERIFY .panel-header] */
+.runtime-form .view .panel > .panel-header,
+.runtime-form .view .panel .panel-header {
+  background: var(--pf-card-head);
+  border-bottom: 2px solid var(--pf-gold);
+  padding: 10px 14px;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--pf-text);
+}
 
-/* Action bar */
-.pf-actionbar{background:var(--pf-surface);border:1px solid var(--pf-border);padding:8px 12px;
-  display:flex;align-items:center;gap:8px}
-.pf-required-note{margin-left:auto;font-size:12px;color:var(--pf-muted)}
+/* ---------- 4. Layout table (the "Table" control on each view) ----------
+   Verified: div.SourceCode-Forms-Controls-Web-Table.Grid-Layout
+   and its cells span.editor-cell */
+.runtime-form .SourceCode-Forms-Controls-Web-Table.Grid-Layout {
+  padding: 8px 10px;
+  row-gap: 8px;
+}
+.runtime-form .SourceCode-Forms-Controls-Web-Table.Grid-Layout > .editor-cell {
+  padding: 4px 6px;
+  align-items: center;
+}
 
-/* Buttons */
-.pf-btn-primary{background:var(--pf-red);color:#fff;border:0;border-radius:2px;height:32px;padding:0 14px;font-weight:600;cursor:pointer}
-.pf-btn-primary[disabled],.pf-btn-primary.pf-disabled{background:#EBA3A4;cursor:default}
-.pf-btn-secondary{background:#fff;color:var(--pf-text);border:1px solid #C9C5BB;border-radius:2px;height:32px;padding:0 14px;cursor:pointer}
-.pf-btn-secondary[disabled]{color:#A8A59D}
-.pf-btn-link{background:none;border:0;color:var(--pf-text);cursor:pointer}
+/* ---------- 5. Buttons ----------
+   Verified: <a class="SFC SourceCode-Forms-Controls-Web-Button"
+             name="ButtonSubmit | ButtonSaveAsDraft | ButtonCancel"> */
+.runtime-form a.SourceCode-Forms-Controls-Web-Button {
+  display: inline-block;
+  background: #fff;
+  border: 1px solid #C9C5BA;
+  border-radius: 3px;
+  color: var(--pf-text);
+  padding: 6px 14px;
+  font-family: var(--pf-font);
+  font-size: 13px;
+  text-decoration: none;
+  cursor: pointer;
+}
+.runtime-form a.SourceCode-Forms-Controls-Web-Button:hover {
+  background: #F5F3EE;
+}
 
-/* Cards */
-.pf-card{background:var(--pf-surface);border:1px solid var(--pf-border);border-radius:3px}
-.pf-card-header{background:var(--pf-card-bg);border-bottom:2px solid var(--pf-gold);
-  padding:8px 14px;font-size:14px;font-weight:600;display:flex;justify-content:space-between}
-.pf-card-hint{font-size:12px;font-weight:400;color:var(--pf-muted)}
-.pf-card-body{padding:16px}
+/* Primary button = Submit */
+.runtime-form a.SourceCode-Forms-Controls-Web-Button[name="ButtonSubmit"] {
+  background: var(--pf-red);
+  border-color: var(--pf-red);
+  color: #fff;
+}
+.runtime-form a.SourceCode-Forms-Controls-Web-Button[name="ButtonSubmit"]:hover {
+  filter: brightness(0.93);
+}
 
-/* Fields */
-.pf-label{color:var(--pf-muted);font-size:13px}
-.pf-req{color:var(--pf-red)}
-.pf-value{font-weight:600}
-.pf-input{height:32px;background:var(--pf-input-bg);border:1px solid var(--pf-input-border);
-  border-radius:2px;padding:0 10px;font:13px var(--pf-font);width:100%;box-sizing:border-box}
-.pf-input::placeholder{color:#A9A18C}
+/* ---------- 6. Inputs [VERIFY class names] ----------
+   Both patterns are listed so it still works if one does not exist. */
+.runtime-form .input-control.text-input,
+.runtime-form .input-control.select-box,
+.runtime-form .input-control.datepicker-box,
+.runtime-form [class*="Web-TextBox"],
+.runtime-form [class*="Web-DropDown"],
+.runtime-form [class*="Web-DatePicker"] {
+  background: var(--pf-input-bg);
+  border: 1px solid var(--pf-input-border);
+  border-radius: 2px;
+  font-family: var(--pf-font);
+}
+.runtime-form .input-control input,
+.runtime-form .input-control textarea {
+  background: transparent;
+  font-family: var(--pf-font);
+  font-size: 13px;
+  color: var(--pf-text);
+}
+.runtime-form .input-control input::placeholder {
+  color: #9A9484;
+}
 
-/* Dropzone */
-.pf-dropzone{border:1px dashed var(--pf-input-border);border-radius:2px;padding:16px;background:#FBFAF6}
-.pf-dropzone a{color:var(--pf-red);text-decoration:underline}
+/* ---------- 7. Labels [VERIFY .SourceCode-Forms-Controls-Web-Label] ---------- */
+.runtime-form [class*="Web-Label"] {
+  font-size: 13px;
+  color: var(--pf-text);
+}
 
-/* Document viewer */
-.pf-viewer{background:var(--pf-viewer);color:#fff;text-align:center;min-height:260px}
+/* Optional helper classes - set in the control's CSS class property */
+.runtime-form .pf-required { color: var(--pf-red); }
+.runtime-form .pf-value    { font-weight: 600; }
+.runtime-form .pf-muted    { color: var(--pf-muted); font-size: 12px; }
+.runtime-form .pf-viewer   { background: #8C8A86; color: #fff; text-align: center; min-height: 260px; }
 
-/* Grid / list */
-.pf-grid th{background:var(--pf-table-head);font-weight:600;text-align:left;
-  padding:10px 12px;border-bottom:2px solid var(--pf-gold)}
-.pf-grid td{padding:10px 12px;border-bottom:1px solid var(--pf-border)}
-.pf-grid tr:nth-child(even) td{background:var(--pf-row-alt)}
-.pf-grid-footer{background:var(--pf-card-bg);color:var(--pf-muted);font-size:12px;
-  padding:8px 12px;display:flex;justify-content:space-between}
+/* ---------- 8. List view / grid [VERIFY names] ---------- */
+.runtime-form .grid-column-header,
+.runtime-form .grid-column-header-text {
+  background: var(--pf-grid-head);
+  font-weight: 600;
+  color: var(--pf-text);
+}
+.runtime-form .grid-column-header {
+  border-bottom: 2px solid var(--pf-gold);
+}
+.runtime-form .grid-content-table td,
+.runtime-form .grid-body td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--pf-grid-head);
+}
+.runtime-form .grid-footer,
+.runtime-form .grid-pager {
+  background: var(--pf-card-head);
+  color: var(--pf-muted);
+  font-size: 12px;
+}
 
-/* Status chips */
-.pf-status{font-weight:600}
-.pf-status::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;
-  background:currentColor;margin-right:6px}
-.pf-st-posted{color:var(--pf-ok)}
-.pf-st-rejected{color:var(--pf-bad)}
-.pf-st-draft{color:var(--pf-muted)}
+/* ---------- 9. Drop-down popup list ----------
+   
+.drop-menu.style-aware {
+  font-family: var(--pf-font);
+  font-size: 13px;
+  border: 1px solid var(--pf-input-border);
+  background: #fff;
+}
