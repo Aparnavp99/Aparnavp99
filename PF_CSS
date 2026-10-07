@@ -1,0 +1,21 @@
+:root{
+  --page-bg:#EDEBE7; --card-bg:#F5F3EE; --surface:#fff;
+  --table-head-bg:#EDE9DD; --border:#E0DCD2;
+  --gold:#B8963E; --red:#D6383A;
+  --input-bg:#F6EEDD; --input-border:#D8CFB8;
+  --text:#1F1F1F; --muted:#6B6B6B;
+  --ok:#2E7D32; --bad:#C62828;
+  --font:"Segoe UI","Open Sans",Arial,sans-serif;
+}
+body{background:var(--page-bg);font:13px var(--font);color:var(--text)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:3px}
+.card-header{background:var(--card-bg);border-bottom:2px solid var(--gold);
+  padding:8px 14px;font-size:14px;font-weight:600}
+.card-body{padding:16px}
+.field label{color:var(--muted)}
+.field input,.field select{height:32px;background:var(--input-bg);
+  border:1px solid var(--input-border);border-radius:2px;padding:0 10px}
+.btn-primary{background:var(--red);color:#fff;border:0;border-radius:2px;height:32px;padding:0 14px;font-weight:600}
+.btn-secondary{background:#fff;border:1px solid #C9C5BB;border-radius:2px;height:32px;padding:0 14px}
+.grid th{background:var(--table-head-bg);font-weight:600;border-bottom:2px solid var(--gold)}
+.grid td{border-bottom:1px solid var(--border)}
